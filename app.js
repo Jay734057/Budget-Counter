@@ -60,10 +60,21 @@ var budgetController = (function() {
         },  
         
         deleteItem: function(type, id) {
-            console.log(id);
+            console.log(id + ' is deleted');
             data.allItems[type] = data.allItems[type].filter(function(obj) {
                 return obj.id !== id
             })
+            
+            //another method:
+//            var ids = data.allItems[type].map(function (current) {
+//                return current.id;
+//            })
+//            
+//            var index = ids.indexOf(id);
+//            
+//            if (index !== -1) {
+//                data.allItems[type].splice(index, 1);
+//            }
         },
         
         calculateBudget: function() {
@@ -151,6 +162,11 @@ var UIController = (function() {
             document.querySelector(element).insertAdjacentHTML('beforeend', html);
         },
         
+        deleteListItem: function(itemID){
+            var item = document.getElementById(itemID);
+            item.parentNode.removeChild(item);
+        },
+        
         clearFields: function() {
             var fields = document.querySelectorAll(DOMstrings.inputDescription + ', ' + DOMstrings.inputValue);
             
@@ -227,8 +243,9 @@ var controller = (function(budgetCtrl, UICtrl) {
             //delete item from data
             budgetCtrl.deleteItem(splitID[0],parseInt(splitID[1]));
             //delete item from UI
-            
+            UICtrl.deleteListItem(itemID);
             //update budget
+            updateBudget();
         }
     }
     
