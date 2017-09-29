@@ -13,6 +13,8 @@ var controller = (function(budgetCtrl, UICtrl) {
         });  
         
         document.querySelector(DOM.container).addEventListener('click', ctrlDeleteItem);
+        
+        document.querySelector(DOM.inputType).addEventListener('change', UICtrl.changeType);
     };
     
     var ctrlAddItem = function() {
@@ -81,6 +83,7 @@ var controller = (function(budgetCtrl, UICtrl) {
                 totalExpenses: 0,
                 percentage: -1
             })
+            UICtrl.displayMonth();
         }
     };
     
